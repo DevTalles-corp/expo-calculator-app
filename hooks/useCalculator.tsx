@@ -62,7 +62,7 @@ export const useCalculator = () => {
   };
 
   const setLastNumber = () => {
-    //TODO: Calculate result
+    calculateResult();
 
     if (number.endsWith('.')) {
       setPrevNumber(number.slice(0, -1));
@@ -118,6 +118,14 @@ export const useCalculator = () => {
     }
   };
 
+  const calculateResult = () => {
+    const result = calculateSubResult();
+    setFormula(`${result}`);
+
+    lastOperation.current = undefined;
+    setPrevNumber('0');
+  };
+
   const buildNumber = (numberString: string) => {
     // Verificar si ya existe el punto decimal
     if (number.includes('.') && numberString === '.') return;
@@ -162,5 +170,7 @@ export const useCalculator = () => {
     multiplyOperation,
     subtractOperation,
     addOperation,
+    calculateSubResult,
+    calculateResult,
   };
 };
